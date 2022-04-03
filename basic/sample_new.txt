@@ -1,0 +1,2 @@
+This is new file created using f=open('sample_new.txt','w')
+and new line written using f.write() function I am appending
