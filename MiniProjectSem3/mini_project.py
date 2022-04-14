@@ -1,28 +1,90 @@
+'''
+Done by JOY KHULBE
+University ID. 20011463 
+Roll no. - 2018401
+Section: D
+Class Roll. 31
+
+'''
+
+from tkinter import *
+from tkinter.filedialog import askopenfilename
+
+
 import zipfile
 from tqdm import tqdm
 
-# the password list path you want to use, must be available in the current directory
-wordlist = "pwd_list.txt"
-# the zip file you want to crack its password
-zip_file = "zip_cracker.zip"
-#To read the zip file in Python, we use the zipfile.ZipFile class that has methods to open, read, write, close, list and extract zip files (we will only use extractall()
 
-# initialize the Zip File object
-zip_file = zipfile.ZipFile(zip_file)
-# count the number of words in this wordlist
-n_words = len(list(open(wordlist, "rb")))
-# print the total number of passwords
+class color_code:
+    #ansi (basic) 
+    ENDC = '\033[0m' 
+     
+    FAIL = '\033[91m'
+    
+    OKCYAN = '\033[96m'
+    
+    OKGREEN = '\033[92m'
+    
+    OKORANGE = '\033[93m'
+    
+    
 
-print("Total passwords to test:", n_words)
-with open(wordlist, "rb") as wordlist:
-    for word in tqdm(wordlist, total=n_words, unit="word"):
-        try:
-            zip_file.extractall(pwd=word.strip())
-        except:
-            print(f"!..Scanning complete {round((word/n_words)*100, 2)}%")
-            print("!!!FAIL!!!\n")
-            continue
-        else:
-            print("[+] Password found:", word.decode().strip())
-            exit(0)
-print("[!] Password not found, try other wordlist.")
+
+def fun_zipper():
+    
+    my_password_list = "pwd_list2.txt"
+    
+    Tk().withdraw()  # dialog box 
+    
+    select_file = askopenfilename()
+
+    
+    select_file = zipfile.ZipFile(select_file) 
+
+    length = len(list(open(my_password_list, "rb"))) # counting
+    
+    print(color_code.OKCYAN + "\nTotal passwords to test:", length)
+    print("\n")
+    with open(my_password_list, "rb") as my_password_list:
+        
+        for word in tqdm(my_password_list, total=length, unit="word"):
+            try:
+                select_file.extractall(path="Zip Extracted material", pwd=word.strip())
+            except:
+                continue
+            else:
+                print(color_code.ENDC)
+                print("\n")
+                print(color_code.OKGREEN)
+                print("--> Password found:", word.decode().strip())
+                print(color_code.ENDC)
+                print("\n")
+                print(color_code.OKORANGE)
+                print("All Files has been Extracted inside the New Directory i.e Zip Extracted material\n\n\nPassword found at:")
+                print("\n")
+                exit(0)
+
+
+    print(color_code.FAIL)
+    print("[X] Password not found [X], try another passwordlist.")
+
+# ui start
+root = Tk()
+
+root.geometry("400x200") #size
+root.minsize(400, 200)
+root.maxsize(400, 200)
+root.title("Zip Password Cracker")
+
+head = Label(text="Zip Password Cracker")
+head.place(x = 141,y= 20)
+
+root.configure(bg='grey')
+
+
+create_button = Button(root, text="Choose zip file", width= 14,height=3,command=fun_zipper)
+
+create_button.place(x=150, y=80)
+
+root.mainloop()
+#ui end
