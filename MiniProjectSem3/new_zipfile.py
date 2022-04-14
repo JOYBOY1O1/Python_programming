@@ -1,9 +1,5 @@
 '''
 Done by JOY KHULBE
-University ID. 20011463 
-Roll no. - 2018401
-Section: D
-Class Roll. 31
 '''
 
 import zipfile
