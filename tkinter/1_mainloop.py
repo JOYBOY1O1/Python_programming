@@ -5,7 +5,7 @@ root = Tk()
 
 root.mainloop()
 
-'''# Important Label Options
+# Important Label Options
 # text - adds the text
 # bd - background
 # fg - foreground
@@ -16,4 +16,3 @@ root.mainloop()
 # padx - x padding
 # pady - y padding
 # relief - border styling - SUNKEN, RAISED, GROOVE, RIDGE
-# '''
